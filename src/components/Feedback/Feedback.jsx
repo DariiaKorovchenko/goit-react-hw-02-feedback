@@ -28,21 +28,23 @@ export class Feedback extends React.Component {
     bad: this.props.bad,
   };
 
+  options = ['Good', 'Neutral', 'Bad'];
+
   visible = false;
 
   onIncrement = event => {
     this.setState(prevState => {
-      if (event.target.textContent === 'Good') {
+      if (event.target.textContent === this.options[0]) {
         this.visible = true;
         return {
           good: prevState.good + 1,
         };
-      } else if (event.target.textContent === 'Neutral') {
+      } else if (event.target.textContent === this.options[1]) {
         this.visible = true;
         return {
           neutral: prevState.neutral + 1,
         };
-      } else if (event.target.textContent === 'Bad') {
+      } else if (event.target.textContent === this.options[2]) {
         this.visible = true;
         return {
           bad: prevState.bad + 1,
@@ -73,11 +75,15 @@ export class Feedback extends React.Component {
     return (
       <div>
         <Section title="Please leave feedback">
-          <FeedbackOptions onLeaveFeedback={this.onIncrement} />
-          {!this.visible && <Notification message="There is no feedback" />}
-
-          {this.visible && (
+          <FeedbackOptions
+            options={this.options}
+            onLeaveFeedback={this.onIncrement}
+          />
+          {!this.visible ? (
+            <Notification message="There is no feedback" />
+          ) : (
             <Statistics
+              title="Statistics"
               good={this.state.good}
               neutral={this.state.neutral}
               bad={this.state.bad}

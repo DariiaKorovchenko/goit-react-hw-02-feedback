@@ -34,18 +34,16 @@ export class Feedback extends React.Component {
 
   onIncrement = event => {
     this.setState(prevState => {
+      this.visible = true;
       if (event.target.textContent === this.options[0]) {
-        this.visible = true;
         return {
           good: prevState.good + 1,
         };
       } else if (event.target.textContent === this.options[1]) {
-        this.visible = true;
         return {
           neutral: prevState.neutral + 1,
         };
       } else if (event.target.textContent === this.options[2]) {
-        this.visible = true;
         return {
           bad: prevState.bad + 1,
         };

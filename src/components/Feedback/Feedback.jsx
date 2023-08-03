@@ -73,12 +73,7 @@ export class Feedback extends React.Component {
     return (
       <div>
         <Section title="Please leave feedback">
-          <FeedbackOptions
-            // options={{
-
-            // }}
-            onLeaveFeedback={this.onIncrement}
-          />
+          <FeedbackOptions onLeaveFeedback={this.onIncrement} />
           {!this.visible && <Notification message="There is no feedback" />}
 
           {this.visible && (

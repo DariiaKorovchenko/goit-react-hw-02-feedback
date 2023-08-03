@@ -7,6 +7,7 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
     return (
       <li key={index}>
         <button
+          id={element}
           className={css.control_button}
           type="button"
           onClick={onLeaveFeedback}

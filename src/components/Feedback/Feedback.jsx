@@ -35,19 +35,10 @@ export class Feedback extends React.Component {
   onIncrement = event => {
     this.setState(prevState => {
       this.visible = true;
-      if (event.target.textContent === this.options[0]) {
-        return {
-          good: prevState.good + 1,
-        };
-      } else if (event.target.textContent === this.options[1]) {
-        return {
-          neutral: prevState.neutral + 1,
-        };
-      } else if (event.target.textContent === this.options[2]) {
-        return {
-          bad: prevState.bad + 1,
-        };
-      }
+      const targetValue = event.target.id.toLowerCase();
+      return {
+        [targetValue]: Number.parseInt([prevState[targetValue]]) + 1,
+      };
     });
   };
 

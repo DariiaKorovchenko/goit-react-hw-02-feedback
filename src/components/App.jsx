@@ -1,40 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Section } from 'components/Section/Section';
 import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 import { Notification } from 'components/Notification/Notification';
 import { Statistics } from 'components/Statistics/Statistics';
 
 export class App extends React.Component {
-  static defaultProps = {
+  state = {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
-    positivePercentage: 0,
   };
-
-  static propTypes = {
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
-    positivePercentage: PropTypes.number.isRequired,
-  };
-
-  state = {
-    good: this.props.good,
-    neutral: this.props.neutral,
-    bad: this.props.bad,
-  };
-
-  options = ['Good', 'Neutral', 'Bad'];
-
-  visible = false;
 
   onIncrement = event => {
     this.setState(prevState => {
-      this.visible = true;
       const targetValue = event.target.id.toLowerCase();
       return {
         [targetValue]: Number.parseInt([prevState[targetValue]]) + 1,
@@ -51,11 +29,7 @@ export class App extends React.Component {
     if (this.state.good === 0) {
       return percent;
     } else {
-      percent = Math.round(
-        (this.state.good /
-          (this.state.good + this.state.neutral + this.state.bad)) *
-          100
-      );
+      percent = Math.round((this.state.good / this.onTotal()) * 100);
       return percent;
     }
   };
@@ -65,10 +39,10 @@ export class App extends React.Component {
       <div>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={this.options}
+            options={Object.keys(this.state)}
             onLeaveFeedback={this.onIncrement}
           />
-          {!this.visible ? (
+          {this.onTotal() === 0 ? (
             <Notification message="There is no feedback" />
           ) : (
             <Statistics

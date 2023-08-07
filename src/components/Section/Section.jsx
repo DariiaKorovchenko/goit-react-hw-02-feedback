@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import css from './Section.module.css';
 
 export const Section = ({ title, children }) => {
-  console.log(children);
   return (
     <div className={css.feedback_section}>
       <h1>{title}</h1>
@@ -14,5 +13,4 @@ export const Section = ({ title, children }) => {
 
 Section.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired,
 };
